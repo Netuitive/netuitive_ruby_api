@@ -25,7 +25,6 @@ class APIEmissary
   			http.ssl_version = :SSLv3
   			http.request req
 		end
-		puts req.body
 		if (response.code != "202" and @configManager.isError?) or (@configManager.isInfo?)
 			puts "Response from submitting netuitive metrics to api
 			code: #{response.code}
