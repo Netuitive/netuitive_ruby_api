@@ -1,14 +1,17 @@
-require 'netuitive/metric_aggregator'
+require 'netuitive/ruby_config_manager'
+require 'drb/drb'
 class NetuitiveRubyAPI
 	class << self
-		def setup
-			@@aggregator=MetricAggregator.new
+		def setup(server)
+			@@netuitivedServer=server
 		end 
 
-		def aggregator
-			return @@aggregator
+		def netuitivedServer
+			return @@netuitivedServer
 		end
 	end
 end
-
-NetuitiveRubyAPI.setup
+ConfigManager::setup
+SERVER_URI="druby://#{ConfigManager.netuitivedAddr}:#{ConfigManager.netuitivedPort}"
+DRb.start_service
+NetuitiveRubyAPI.setup(DRbObject.new_with_uri(SERVER_URI))
