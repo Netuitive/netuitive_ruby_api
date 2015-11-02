@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name        = 'netuitive_ruby_api'
-  s.version     = '0.9.3'
+  s.version     = '0.9.4'
   s.date        = '2015-11-02'
   s.summary     = "Interface for Netuitive's metric ingest API"
   s.description = "Allows for easy submittion of metrics to Netuitive"
