@@ -1,3 +1,4 @@
-debugLevel: info #options (in ascending order of debugness) are: error, info, debug
-netuitivedAddr: localhost
-netuitivedPort: 8875
+#all are configurable using environment variables
+debugLevel: info #options (in ascending order of debugness) are: error, info, debug. environment variable: NETUITIVE_RUBY_DEBUG_LEVEL
+netuitivedAddr: localhost #environment variable: NETUITIVE_RUBY_NETUITIVED_ADDR
+netuitivedPort: 8875 #environment variable: NETUITIVE_RUBY_NETUITIVED_PORT
