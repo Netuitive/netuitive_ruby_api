@@ -17,11 +17,20 @@ class ConfigManager
 		def readConfig()
 			gem_root= File.expand_path("../../..", __FILE__)
 			data=YAML.load_file "#{gem_root}/config/agent.yml"
-			@@netuitivedAddr=data["netuitivedAddr"]
-			@@netuitivedPort=data["netuitivedPort"]
+			@@netuitivedAddr=ENV["NETUITIVE_RUBY_NETUITIVED_ADDR"]
+			if(@@netuitivedAddr == nil or @@netuitivedAddr == "")
+				@@netuitivedAddr=data["netuitivedAddr"]
+			end
+			@@netuitivedPort=ENV["NETUITIVE_RUBY_NETUITIVED_PORT"]
+			if(@@netuitivedPort == nil or @@netuitivedPort == "")
+				@@netuitivedPort=data["netuitivedPort"]
+			end
+			debugLevelString=ENV["NETUITIVE_RUBY_DEBUG_LEVEL"]
+			if(debugLevelString == nil or debugLevelString == "")
+				debugLevelString=data["debugLevel"]
+			end
 			NetuitiveLogger.log.info "port: #{@@netuitivedPort}"
 			NetuitiveLogger.log.info "addr: #{@@netuitivedAddr}"
-			debugLevelString=data["debugLevel"]
 			if debugLevelString == "error"
 				NetuitiveLogger.log.level = Logger::ERROR
 			elsif debugLevelString == "info"
