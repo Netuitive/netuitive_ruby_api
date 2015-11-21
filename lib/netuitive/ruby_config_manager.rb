@@ -1,4 +1,5 @@
 require 'netuitive/netuitive_ruby_logger'
+require 'yaml'
 class ConfigManager
 
 	class << self
