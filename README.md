@@ -1,21 +1,29 @@
-# netuitive_ruby_api
-An easy interface to communicate with the netuitive ruby daemon netuitived(https://rubygems.org/gems/netuitived)
+Netuitive Ruby API
+===================
 
-Requirements:
-	netuitived must be running
+The Netuitive Ruby API provides an easy interface to communicate with the Netuitive Ruby daemon [NetuitiveD](https://rubygems.org/gems/netuitived). NetuitiveD is meant to work in conjunction with NetuitiveD and the [netuitive_rails_agent](https://rubygems.org/gems/netuitive_rails_agent) gem to help [Netuitive](https://www.netuitive.com) monitor your Ruby applications.
 
-How to install using gem:
+For more information on the Netuitive Ruby API, see our Ruby agent [help docs](https://help.netuitive.com/Content/Misc/Datasources/new_ruby_datasource.htm), or contact Netuitive support at [support@netuitive.com](mailto:support@netuitive.com).
 
-run the command:
+Requirements
+-------------
 
-     gem install netuitive_ruby_api
+[NetuitiveD](https://github.com/Netuitive/netuitived) must be installed and running.
 
-How to use:
+Installing the Netuitive Ruby API
+----------------------------------
+
+`gem install netuitive_ruby_api`
+
+Using the Netuitive Ruby API
+-----------------------------
 
 Single sample example:
-NetuitiveRubyAPI::netuitivedServer.addSample("metric.name", [metric value])
+
+    NetuitiveRubyAPI::netuitivedServer.addSample("metric.name", [metric value])
 
 Add the aggregation value to the existing value for the metric for this interval:
-NetuitiveRubyAPI::netuitivedServer.aggregateMetric("metric.name", [aggregation value])
 
-Aggregation may be confusing but at its heart it's a simple concept. It's basically a sum of the aggregation values over the course of a single interval; it's useful for datasets like the number of requests per minute.  
+    NetuitiveRubyAPI::netuitivedServer.aggregateMetric("metric.name", [aggregation value])
+
+An aggregation value is the sum of metric values over the course of a single interval. Aggregation can be quite useful for datasets like the number of requests per minute.
