@@ -1,15 +1,15 @@
 require 'netuitive/ruby_config_manager'
 require 'drb/drb'
 class NetuitiveRubyAPI
-	class << self
-		def setup(server)
-			@@netuitivedServer=server
-		end 
+  class << self
+    def setup(server)
+      @@netuitivedServer=server
+    end
 
-		def netuitivedServer
-			return @@netuitivedServer
-		end
-	end
+    def netuitivedServer
+      return @@netuitivedServer
+    end
+  end
 end
 ConfigManager::setup
 SERVER_URI="druby://#{ConfigManager.netuitivedAddr}:#{ConfigManager.netuitivedPort}"
