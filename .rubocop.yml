@@ -1,0 +1,14 @@
+Style/ClassVars:
+  Enabled: false
+
+Style/Documentation:
+  Enabled: false
+
+Style/MethodName:
+  Enabled: false
+
+Style/VariableName:
+  Enabled: false
+
+Metrics:
+  Enabled: false
