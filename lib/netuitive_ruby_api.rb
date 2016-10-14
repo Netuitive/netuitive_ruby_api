@@ -37,15 +37,15 @@ class NetuitiveRubyAPI
     end
 
     def interval
-      server_interaction { netuitivedServer.interval }
+      netuitivedServer.interval # synchronous for return value
     end
 
     def event(message, timestamp = Time.new, title = 'Ruby Event', level = 'Info', source = 'Ruby Agent', type = 'INFO', tags = nil)
       server_interaction { netuitivedServer.event(message, timestamp, title, level, source, type, tags) }
     end
 
-    def exception_event(exception, klass = nill, uri = nil, controller = nil, action = nil)
-      server_interaction { netuitivedServer.exceptionEvent(exception, klass, uri, controller, action) }
+    def exception_event(exception, klass = nil, tags = nil)
+      server_interaction { netuitivedServer.exceptionEvent(exception, klass, tags) }
     end
 
     def stop_server
