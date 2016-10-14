@@ -64,7 +64,9 @@ class NetuitiveRubyAPI
   end
 end
 
-ConfigManager.setup
+ConfigManager.load_config
+NetuitiveLogger.setup
+ConfigManager.read_config
 SERVER_URI = "druby://#{ConfigManager.netuitivedAddr}:#{ConfigManager.netuitivedPort}".freeze
 DRb.start_service
 NetuitiveRubyAPI.setup(DRbObject.new_with_uri(SERVER_URI))
