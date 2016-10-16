@@ -1,7 +1,7 @@
 require 'test/unit'
 require 'mocha/test_unit'
 require 'netuitive_ruby_api'
-require 'netuitive/netuitived_logger'
+require 'netuitive/netuitive_ruby_logger'
 
 class NetuitiveRubyAPITest < Test::Unit::TestCase
   def setup
