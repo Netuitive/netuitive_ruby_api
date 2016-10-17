@@ -1,6 +1,6 @@
 require 'netuitive/netuitive_ruby_logger'
 require 'yaml'
-class ConfigManager
+class RubyConfigManager
   class << self
     attr_reader :netuitivedAddr
 
@@ -56,18 +56,18 @@ class ConfigManager
       @netuitivedAddr = property('netuitivedAddr', 'NETUITIVE_RUBY_NETUITIVED_ADDR')
       @netuitivedPort = property('netuitivedPort', 'NETUITIVE_RUBY_NETUITIVED_PORT')
       debugLevelString = property('debugLevel', 'NETUITIVE_RUBY_DEBUG_LEVEL')
-      NetuitiveLogger.log.level = if debugLevelString == 'error'
-                                    Logger::ERROR
-                                  elsif debugLevelString == 'info'
-                                    Logger::INFO
-                                  elsif debugLevelString == 'debug'
-                                    Logger::DEBUG
-                                  else
-                                    Logger::ERROR
-                                  end
-      NetuitiveLogger.log.info "port: #{@netuitivedPort}"
-      NetuitiveLogger.log.info "addr: #{@netuitivedAddr}"
-      NetuitiveLogger.log.debug "read config file. Results:
+      RubyNetuitiveLogger.log.level = if debugLevelString == 'error'
+                                        Logger::ERROR
+                                      elsif debugLevelString == 'info'
+                                        Logger::INFO
+                                      elsif debugLevelString == 'debug'
+                                        Logger::DEBUG
+                                      else
+                                        Logger::ERROR
+                                      end
+      RubyNetuitiveLogger.log.info "port: #{@netuitivedPort}"
+      RubyNetuitiveLogger.log.info "addr: #{@netuitivedAddr}"
+      RubyNetuitiveLogger.log.debug "read config file. Results:
         netuitivedAddr: #{@netuitivedAddr}
         netuitivedPort: #{@netuitivedPort}
         debugLevel: #{debugLevelString}"
