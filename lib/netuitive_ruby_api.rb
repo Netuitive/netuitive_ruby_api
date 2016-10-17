@@ -1,6 +1,7 @@
-require 'netuitive/ruby_config_manager'
+require 'yaml'
 require 'drb/drb'
-require 'netuitive/netuitive_ruby_logger'
+require 'netuitive_ruby_api/config_manager'
+require 'netuitive_ruby_api/netuitive_logger'
 
 class NetuitiveRubyAPI
   class << self
@@ -57,16 +58,16 @@ class NetuitiveRubyAPI
         begin
           yield
         rescue => e
-          RubyNetuitiveLogger.log.error "unable to connect to netuitived: message:#{e.message} backtrace:#{e.backtrace}"
+          NetuitiveRubyApi::NetuitiveLogger.log.error "unable to connect to netuitived: message:#{e.message} backtrace:#{e.backtrace}"
         end
       end
     end
   end
 end
 
-RubyConfigManager.load_config
-RubyNetuitiveLogger.setup
-RubyConfigManager.read_config
-SERVER_URI = "druby://#{RubyConfigManager.netuitivedAddr}:#{RubyConfigManager.netuitivedPort}".freeze
+NetuitiveRubyApi::ConfigManager.load_config
+NetuitiveRubyApi::NetuitiveLogger.setup
+NetuitiveRubyApi::ConfigManager.read_config
+SERVER_URI = "druby://#{NetuitiveRubyApi::ConfigManager.netuitivedAddr}:#{NetuitiveRubyApi::ConfigManager.netuitivedPort}".freeze
 DRb.start_service
 NetuitiveRubyAPI.setup(DRbObject.new_with_uri(SERVER_URI))
