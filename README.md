@@ -27,3 +27,14 @@ Add the aggregation value to the existing value for the metric for this interval
     NetuitiveRubyAPI::netuitivedServer.aggregateMetric("metric.name", [aggregation value])
 
 An aggregation value is the sum of metric values over the course of a single interval. Aggregation can be quite useful for datasets like the number of requests per minute.
+
+### Test
+
+To run the tests and code syntax validation run the following commands:
+
+```
+gem install bundle
+bundle install
+bundle exec rubocop
+bundle exec rake test
+```
