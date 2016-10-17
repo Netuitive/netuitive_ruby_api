@@ -1,4 +1,7 @@
 #all are configurable using environment variables
+logLocation: #absolute path of log file. leave blank for default location in the gem directory. environment variable: NETUITIVE_RUBY_LOG_LOCATION
+logAge: daily #Number of old log files to keep, or frequency of rotation (daily, weekly or monthly). environment variable: NETUITIVE_RUBY_LOG_AGE
+logSize: #Maximum logfile size in bytes (only applies when shift_age is a number). environment variable: NETUITIVE_RUBY_LOG_SIZE
 debugLevel: info #options (in ascending order of debugness) are: error, info, debug. environment variable: NETUITIVE_RUBY_DEBUG_LEVEL
 netuitivedAddr: localhost #environment variable: NETUITIVE_RUBY_NETUITIVED_ADDR
 netuitivedPort: 8875 #environment variable: NETUITIVE_RUBY_NETUITIVED_PORT

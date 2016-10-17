@@ -1,50 +1,76 @@
 require 'netuitive/netuitive_ruby_logger'
 require 'yaml'
-class ConfigManager
+class RubyConfigManager
+  class << self
+    attr_reader :netuitivedAddr
 
-	class << self
-		def setup()
-			readConfig()
-		end
+    attr_reader :netuitivedPort
 
-		def netuitivedAddr
-			@@netuitivedAddr
-		end
+    attr_reader :data
 
-		def netuitivedPort
-			@@netuitivedPort
-		end
+    def property(name, var, default = nil)
+      prop = ENV[var]
+      prop = data[name] if prop.nil? || (prop == '')
+      return prop unless prop.nil? || (prop == '')
+      default
+    end
 
-		def readConfig()
-			gem_root= File.expand_path("../../..", __FILE__)
-			data=YAML.load_file "#{gem_root}/config/agent.yml"
-			@@netuitivedAddr=ENV["NETUITIVE_RUBY_NETUITIVED_ADDR"]
-			if(@@netuitivedAddr == nil or @@netuitivedAddr == "")
-				@@netuitivedAddr=data["netuitivedAddr"]
-			end
-			@@netuitivedPort=ENV["NETUITIVE_RUBY_NETUITIVED_PORT"]
-			if(@@netuitivedPort == nil or @@netuitivedPort == "")
-				@@netuitivedPort=data["netuitivedPort"]
-			end
-			debugLevelString=ENV["NETUITIVE_RUBY_DEBUG_LEVEL"]
-			if(debugLevelString == nil or debugLevelString == "")
-				debugLevelString=data["debugLevel"]
-			end
-			NetuitiveLogger.log.info "port: #{@@netuitivedPort}"
-			NetuitiveLogger.log.info "addr: #{@@netuitivedAddr}"
-			if debugLevelString == "error"
-				NetuitiveLogger.log.level = Logger::ERROR
-			elsif debugLevelString == "info"
-				NetuitiveLogger.log.level = Logger::INFO
-			elsif debugLevelString == "debug"
-				NetuitiveLogger.log.level = Logger::DEBUG
-			else
-				NetuitiveLogger.log.level = Logger::ERROR
-			end
-			NetuitiveLogger.log.debug "read config file. Results: 
-				netuitivedAddr: #{@@netuitivedAddr}
-				netuitivedPort: #{@@netuitivedPort}
-				debugLevel: #{debugLevelString}"
-		end
-	end
-end 
+    def boolean_property(name, var)
+      prop = ENV[var].nil? ? nil : ENV[var].dup
+      if prop.nil? || (prop == '')
+        prop = data[name]
+      else
+        prop.strip!
+        prop = prop.casecmp('true').zero?
+      end
+      prop
+    end
+
+    def float_property(name, var)
+      prop = ENV[var].nil? ? nil : ENV[var]
+      if prop.nil? || (prop == '')
+        data[name].to_f
+      else
+        prop.to_f
+      end
+    end
+
+    def string_list_property(name, var)
+      list = []
+      prop = ENV[var].nil? ? nil : ENV[var].dup
+      if prop.nil? || (prop == '')
+        list = data[name] if !data[name].nil? && data[name].is_a?(Array)
+      else
+        list = prop.split(',')
+      end
+      list.each(&:strip!) unless list.empty?
+      list
+    end
+
+    def load_config
+      gem_root = File.expand_path('../../..', __FILE__)
+      @data = YAML.load_file "#{gem_root}/config/agent.yml"
+    end
+
+    def read_config
+      @netuitivedAddr = property('netuitivedAddr', 'NETUITIVE_RUBY_NETUITIVED_ADDR')
+      @netuitivedPort = property('netuitivedPort', 'NETUITIVE_RUBY_NETUITIVED_PORT')
+      debugLevelString = property('debugLevel', 'NETUITIVE_RUBY_DEBUG_LEVEL')
+      RubyNetuitiveLogger.log.level = if debugLevelString == 'error'
+                                        Logger::ERROR
+                                      elsif debugLevelString == 'info'
+                                        Logger::INFO
+                                      elsif debugLevelString == 'debug'
+                                        Logger::DEBUG
+                                      else
+                                        Logger::ERROR
+                                      end
+      RubyNetuitiveLogger.log.info "port: #{@netuitivedPort}"
+      RubyNetuitiveLogger.log.info "addr: #{@netuitivedAddr}"
+      RubyNetuitiveLogger.log.debug "read config file. Results:
+        netuitivedAddr: #{@netuitivedAddr}
+        netuitivedPort: #{@netuitivedPort}
+        debugLevel: #{debugLevelString}"
+    end
+  end
+end
