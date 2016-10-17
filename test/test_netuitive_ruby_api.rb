@@ -7,7 +7,7 @@ class NetuitiveRubyAPITest < Test::Unit::TestCase
   def setup
     @netuitived_server = mock
     NetuitiveRubyAPI.setup(@netuitived_server)
-    NetuitiveLogger.setup
+    RubyNetuitiveLogger.setup
   end
 
   def test_stop_server
