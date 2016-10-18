@@ -1,5 +1,6 @@
-netuitive_ruby_api 1.0.0 (2016-10-17)
+netuitive_ruby_api 1.0.1 (2016-10-17)
 -------------------------
+* refactoring of classes into gem namespace to avoid collisions
 * external event support
 * errors as events support
 * async calls to netuitived
