@@ -1,9 +1,3 @@
-require 'test/unit'
-require 'mocha/test_unit'
-require 'netuitive_ruby_api'
-require 'netuitive_ruby_api/config_manager'
-require 'netuitive_ruby_api/netuitive_logger'
-
 module NetuitiveRubyApi
   class NetuitiveRubyAPITest < Test::Unit::TestCase
     def setup
@@ -49,9 +43,17 @@ module NetuitiveRubyApi
     end
 
     def test_exception_event
-      @netuitived_server.expects(:exceptionEvent).once.with(RuntimeError.new, nil, nil)
-      thread = NetuitiveRubyAPI.exception_event(RuntimeError.new)
+      error = RuntimeError.new
+      @netuitived_server.expects(:exceptionEvent).once.with({ message: error.message }, nil, nil)
+      thread = NetuitiveRubyAPI.exception_event(error)
       thread.join
+      begin
+        raise 'test exception'
+      rescue => e
+        @netuitived_server.expects(:exceptionEvent).once.with({ message: e.message, backtrace: e.backtrace.join("\n\t") }, nil, nil)
+        thread = NetuitiveRubyAPI.exception_event(e)
+        thread.join
+      end
     end
 
     def test_add_counter_sample

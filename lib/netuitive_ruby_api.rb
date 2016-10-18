@@ -1,4 +1,5 @@
 require 'yaml'
+require 'logger'
 require 'drb/drb'
 require 'netuitive_ruby_api/config_manager'
 require 'netuitive_ruby_api/netuitive_logger'
@@ -46,7 +47,11 @@ class NetuitiveRubyAPI
     end
 
     def exception_event(exception, klass = nil, tags = nil)
-      server_interaction { netuitivedServer.exceptionEvent(exception, klass, tags) }
+      server_interaction do
+        hash = { message: exception.message }
+        hash[:backtrace] = exception.backtrace.join("\n\t") if (defined? exception.backtrace) && !exception.backtrace.nil?
+        netuitivedServer.exceptionEvent(hash, klass, tags)
+      end
     end
 
     def stop_server

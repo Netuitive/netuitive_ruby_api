@@ -18,11 +18,31 @@ module NetuitiveRubyApi
       def setup
         file = NetuitiveRubyApi::ConfigManager.property('logLocation', 'NETUITIVE_RUBY_LOG_LOCATION', "#{File.expand_path('../../..', __FILE__)}/log/netuitive.log")
         age = NetuitiveRubyApi::ConfigManager.property('logAge', 'NETUITIVE_RUBY_LOG_AGE', 'daily')
-        size = NetuitiveRubyApi::ConfigManager.property('logSize', 'NETUITIVE_RUBY_LOG_SIZE', nil)
+        age = format_age(age)
+        size = NetuitiveRubyApi::ConfigManager.property('logSize', 'NETUITIVE_RUBY_LOG_SIZE', 1_000_000)
+        size = format_size(size)
         @log = Logger.new(file, age, size)
       rescue
         puts 'netuitive unable to open log file'
         @log = NetuitiveRubyApi::CheaterLogger.new
+      end
+
+      def format_age(age)
+        return 'daily' if age.nil?
+        begin
+          Integer(age)
+        rescue
+          age
+        end
+      end
+
+      def format_size(size)
+        return 1_000_000 if size.nil?
+        begin
+          Integer(size)
+        rescue
+          size
+        end
       end
     end
   end
