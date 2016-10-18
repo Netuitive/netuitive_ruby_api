@@ -22,8 +22,8 @@ module NetuitiveRubyApi
         size = NetuitiveRubyApi::ConfigManager.property('logSize', 'NETUITIVE_RUBY_LOG_SIZE', 1_000_000)
         size = format_size(size)
         @log = Logger.new(file, age, size)
-      rescue
-        puts 'netuitive unable to open log file'
+      rescue => e
+        puts "netuitive unable to open log file. error: #{e.message}, backtrace: #{e.backtrace}"
         @log = NetuitiveRubyApi::CheaterLogger.new
       end
 
