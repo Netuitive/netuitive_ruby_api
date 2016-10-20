@@ -2,32 +2,29 @@ module NetuitiveRubyApi
   class NetuitiveRubyAPITest < Test::Unit::TestCase
     def setup
       @netuitived_server = mock
-      NetuitiveRubyAPI.setup(@netuitived_server)
+      @data_manager = mock
+      NetuitiveRubyAPI.setup(@netuitived_server, @data_manager)
       NetuitiveRubyApi::NetuitiveLogger.setup
     end
 
     def test_stop_server
       @netuitived_server.expects(:stopServer).once
-      thread = NetuitiveRubyAPI.stop_server
-      thread.join
+      NetuitiveRubyAPI.stop_server
     end
 
     def test_send_metrics
       @netuitived_server.expects(:sendMetrics).once
-      thread = NetuitiveRubyAPI.send_metrics
-      thread.join
+      NetuitiveRubyAPI.send_metrics
     end
 
     def test_clear_metrics
       @netuitived_server.expects(:clearMetrics).once
-      thread = NetuitiveRubyAPI.clear_metrics
-      thread.join
+      NetuitiveRubyAPI.clear_metrics
     end
 
     def test_add_sample
-      @netuitived_server.expects(:addSample).once.with('test.id', 5)
-      thread = NetuitiveRubyAPI.add_sample('test.id', 5)
-      thread.join
+      @data_manager.expects(:add_sample).once.with('test.id', 5)
+      NetuitiveRubyAPI.add_sample('test.id', 5)
     end
 
     def test_interval
@@ -37,41 +34,35 @@ module NetuitiveRubyApi
     end
 
     def test_event
-      @netuitived_server.expects(:event).once.with('test message', Time.new(2000, 1, 1, 1, 1, 1), 'Ruby Event', 'Info', 'Ruby Agent', 'INFO', nil)
-      thread = NetuitiveRubyAPI.event('test message', Time.new(2000, 1, 1, 1, 1, 1))
-      thread.join
+      @data_manager.expects(:event).once.with('test message', Time.new(2000, 1, 1, 1, 1, 1), 'Ruby Event', 'Info', 'Ruby Agent', 'INFO', nil)
+      NetuitiveRubyAPI.event('test message', Time.new(2000, 1, 1, 1, 1, 1))
     end
 
     def test_exception_event
       error = RuntimeError.new
-      @netuitived_server.expects(:exceptionEvent).once.with({ message: error.message }, nil, nil)
-      thread = NetuitiveRubyAPI.exception_event(error)
-      thread.join
+      @data_manager.expects(:exception_event).once.with(error, nil, nil)
+      NetuitiveRubyAPI.exception_event(error)
       begin
         raise 'test exception'
       rescue => e
-        @netuitived_server.expects(:exceptionEvent).once.with({ message: e.message, backtrace: e.backtrace.join("\n\t") }, nil, nil)
-        thread = NetuitiveRubyAPI.exception_event(e)
-        thread.join
+        @data_manager.expects(:exception_event).once.with(e, nil, nil)
+        NetuitiveRubyAPI.exception_event(e)
       end
     end
 
     def test_add_counter_sample
-      @netuitived_server.expects(:addCounterSample).once.with('test.id', 5)
-      thread = NetuitiveRubyAPI.add_counter_sample('test.id', 5)
-      thread.join
+      @data_manager.expects(:add_counter_sample).once.with('test.id', 5)
+      NetuitiveRubyAPI.add_counter_sample('test.id', 5)
     end
 
     def test_aggregate_metric
-      @netuitived_server.expects(:aggregateMetric).once.with('test.id', 5)
-      thread = NetuitiveRubyAPI.aggregate_metric('test.id', 5)
-      thread.join
+      @data_manager.expects(:aggregate_metric).once.with('test.id', 5)
+      NetuitiveRubyAPI.aggregate_metric('test.id', 5)
     end
 
-    def aggregate_counter_metric
-      @netuitived_server.expects(:aggregateCounterMetric).once.with('test.id', 5)
-      thread = NetuitiveRubyAPI.aggregate_counter_metric('test.id', 5)
-      thread.join
+    def test_aggregate_counter_metric
+      @data_manager.expects(:aggregate_counter_metric).once.with('test.id', 5)
+      NetuitiveRubyAPI.aggregate_counter_metric('test.id', 5)
     end
   end
 end
