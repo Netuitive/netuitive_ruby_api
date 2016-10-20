@@ -66,7 +66,6 @@ module NetuitiveRubyApi
       NetuitiveRubyApi::ErrorLogger.guard('error during exception_event') do
         hash = { message: exception.message }
         hash[:backtrace] = exception.backtrace.join("\n\t") if (defined? exception.backtrace) && !exception.backtrace.nil?
-        NetuitiveRubyApi::NetuitiveLogger.log.debug "data cache: #{data_cache}"
         if @event_cache_enabled
           NetuitiveRubyApi::NetuitiveLogger.log.debug "adding exception event to cache: #{hash[:message]}"
           event_cache_addition do
@@ -83,7 +82,8 @@ module NetuitiveRubyApi
     def flush_samples
       NetuitiveRubyApi::ErrorLogger.guard('error during flush_samples') do
         sample = data_cache.clear_sample_cache
-        NetuitiveRubyApi::NetuitiveLogger.log.info "sending #{sample[:samples].size + sample[:counter_samples].size + sample[:aggregate_metrics].size + sample[:aggregate_counter_metrics].size} samples"
+        num = sample[:samples].size + sample[:counter_samples].size + sample[:aggregate_metrics].size + sample[:aggregate_counter_metrics].size
+        NetuitiveRubyApi::NetuitiveLogger.log.info "sending #{num} samples" if num > 0
         threads = []
         threads << server_interaction do
           NetuitiveRubyApi::NetuitiveLogger.log.debug "sending samples: #{sample[:samples]} "
@@ -106,11 +106,10 @@ module NetuitiveRubyApi
     end
 
     def flush_events
-      NetuitiveRubyApi::NetuitiveLogger.log.debug "event_cache: #{data_cache.instance_variable_get(:@exception_events)}"
       NetuitiveRubyApi::ErrorLogger.guard('error during flush_events') do
         event_cache = data_cache.clear_event_cache
-        NetuitiveRubyApi::NetuitiveLogger.log.debug "event_cache: #{event_cache}"
-        NetuitiveRubyApi::NetuitiveLogger.log.info "sending #{event_cache[:events].size + event_cache[:exception_events].size} events"
+        num = event_cache[:events].size + event_cache[:exception_events].size
+        NetuitiveRubyApi::NetuitiveLogger.log.info "sending #{num} events" if num > 0
         threads = []
         threads << server_interaction do
           NetuitiveRubyApi::NetuitiveLogger.log.debug "sending events: #{event_cache[:events]} "
@@ -125,10 +124,12 @@ module NetuitiveRubyApi
     end
 
     def sample_cache_addition
+      NetuitiveRubyAPI.check_restart
       flush_samples if yield >= @sample_cache_size
     end
 
     def event_cache_addition
+      NetuitiveRubyAPI.check_restart
       flush_events if yield >= @event_cache_size
     end
 

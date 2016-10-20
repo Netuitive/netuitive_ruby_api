@@ -3,8 +3,9 @@ module NetuitiveRubyApi
     def setup
       @netuitived_server = mock
       @data_manager = mock
-      NetuitiveRubyAPI.setup(@netuitived_server, @data_manager)
-      NetuitiveRubyApi::NetuitiveLogger.setup
+      NetuitiveRubyAPI.setup
+      NetuitiveRubyAPI.data_manager = @data_manager
+      NetuitiveRubyAPI.netuitivedServer = @netuitived_server
     end
 
     def test_stop_server

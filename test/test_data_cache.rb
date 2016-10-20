@@ -5,7 +5,6 @@ require 'netuitive_ruby_api/config_manager'
 require 'netuitive_ruby_api/netuitive_logger'
 require 'netuitive_ruby_api/error_logger'
 require 'netuitive_ruby_api/data_cache'
-require 'netuitive_ruby_api/data_cache_interaction'
 require 'netuitive_ruby_api/data_manager'
 require 'netuitive_ruby_api/event_schedule'
 require 'netuitive_ruby_api/sample_schedule'
@@ -13,7 +12,7 @@ require 'netuitive_ruby_api/sample_schedule'
 module NetuitiveRubyApi
   class DataCacheTest < Test::Unit::TestCase
     def setup
-      @data_cache = NetuitiveRubyApi::DataCacheInteraction.new
+      @data_cache = NetuitiveRubyApi::DataCache.new
     end
 
     def test_add_sample
