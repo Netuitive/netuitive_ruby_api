@@ -1,9 +1,3 @@
-require 'test/unit'
-require 'mocha/test_unit'
-require 'netuitive_ruby_api'
-require 'netuitive_ruby_api/config_manager'
-require 'netuitive_ruby_api/netuitive_logger'
-
 module NetuitiveRubyApi
   class NetuitiveLoggerTest
     def test_format_age

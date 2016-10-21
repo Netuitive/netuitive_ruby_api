@@ -1,7 +1,19 @@
 #all are configurable using environment variables
-logLocation: #absolute path of log file. leave blank for default location in the gem directory. environment variable: NETUITIVE_RUBY_LOG_LOCATION
-logAge: daily #Number of old log files to keep, or frequency of rotation (daily, weekly or monthly). environment variable: NETUITIVE_RUBY_LOG_AGE
-logSize: #Maximum logfile size in bytes (only applies when shift_age is a number). environment variable: NETUITIVE_RUBY_LOG_SIZE
-debugLevel: info #options (in ascending order of debugness) are: error, info, debug. environment variable: NETUITIVE_RUBY_DEBUG_LEVEL
-netuitivedAddr: localhost #environment variable: NETUITIVE_RUBY_NETUITIVED_ADDR
-netuitivedPort: 8875 #environment variable: NETUITIVE_RUBY_NETUITIVED_PORT
+#log properties
+logLocation: #NETUITIVE_RUBY_LOG_LOCATION absolute path of log file. leave blank for default location in the gem directory.
+logAge: daily #NETUITIVE_RUBY_LOG_AGE Number of old log files to keep, or frequency of rotation (daily, weekly or monthly).
+logSize: #NETUITIVE_RUBY_LOG_SIZE Maximum logfile size in bytes (only applies when shift_age is a number).
+debugLevel: error #NETUITIVE_RUBY_DEBUG_LEVEL options (in ascending order of debugness) are: error, info, debug.
+
+#netuitived connection properties
+netuitivedAddr: localhost #NETUITIVE_RUBY_NETUITIVED_ADDR
+netuitivedPort: 8875 #NETUITIVE_RUBY_NETUITIVED_PORT
+
+#cache properties
+#the point of the cache is to be as *small* as possible while still avoiding excessive delivery thread growth.
+sampleCacheEnabled: true #NETUITIVE_RUBY_SAMPLE_CACHE_ENABLED
+sampleCacheSize: 50 #NETUITIVE_RUBY_SAMPLE_CACHE_SIZE maximum number of samples to be cached before being sent to netuitived
+sampleCacheInterval: 10 #NETUITIVE_RUBY_SAMPLE_CACHE_INTERVAL interval (in seconds) to send cached samples to netuitived
+eventCacheEnabled: false #NETUITIVE_RUBY_EVENT_CACHE_ENABLED
+eventCacheSize: 50 #NETUITIVE_RUBY_SAMPLE_CACHE_SIZE maximum number of events to be cached before being sent to netuitived
+eventCacheInterval: 10 #NETUITIVE_RUBY_SAMPLE_CACHE_INTERVAL interval (in seconds) to send cached events to netuitived

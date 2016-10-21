@@ -14,7 +14,7 @@ module NetuitiveRubyApi
 
   class NetuitiveLogger
     class << self
-      attr_reader :log
+      attr_accessor :log
       def setup
         file = NetuitiveRubyApi::ConfigManager.property('logLocation', 'NETUITIVE_RUBY_LOG_LOCATION', "#{File.expand_path('../../..', __FILE__)}/log/netuitive.log")
         age = NetuitiveRubyApi::ConfigManager.property('logAge', 'NETUITIVE_RUBY_LOG_AGE', 'daily')
