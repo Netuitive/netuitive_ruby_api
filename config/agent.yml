@@ -12,8 +12,8 @@ netuitivedPort: 8875 #NETUITIVE_RUBY_NETUITIVED_PORT
 #cache properties
 #the point of the cache is to be as *small* as possible while still avoiding excessive delivery thread growth.
 sampleCacheEnabled: true #NETUITIVE_RUBY_SAMPLE_CACHE_ENABLED
-sampleCacheSize: 25 #NETUITIVE_RUBY_SAMPLE_CACHE_SIZE maximum number of samples to be cached before being sent to netuitived
+sampleCacheSize: 50 #NETUITIVE_RUBY_SAMPLE_CACHE_SIZE maximum number of samples to be cached before being sent to netuitived
 sampleCacheInterval: 10 #NETUITIVE_RUBY_SAMPLE_CACHE_INTERVAL interval (in seconds) to send cached samples to netuitived
 eventCacheEnabled: false #NETUITIVE_RUBY_EVENT_CACHE_ENABLED
-eventCacheSize: 25 #NETUITIVE_RUBY_SAMPLE_CACHE_SIZE maximum number of events to be cached before being sent to netuitived
+eventCacheSize: 50 #NETUITIVE_RUBY_SAMPLE_CACHE_SIZE maximum number of events to be cached before being sent to netuitived
 eventCacheInterval: 10 #NETUITIVE_RUBY_SAMPLE_CACHE_INTERVAL interval (in seconds) to send cached events to netuitived
