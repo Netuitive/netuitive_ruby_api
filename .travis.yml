@@ -2,7 +2,7 @@ language: ruby
 rvm:
   - 2.2.0
 install:
-  - gem install rubocop -v 0.44.1
+  - gem install rubocop -v 0.47.1
   - gem install haml-lint  mocha
 script:
   - rubocop
