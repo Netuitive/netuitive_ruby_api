@@ -10,7 +10,7 @@ Gem::Specification.new do |s|
   s.files       = files
   s.homepage    =
     'http://rubygems.org/gems/netuitive_ruby_api'
-  s.license = 'Apache v2.0'
+  s.license = 'Apache-2.0'
   s.required_ruby_version = '>= 1.9.0'
   s.add_development_dependency 'netuitived', '>= 1.1.0'
 end
