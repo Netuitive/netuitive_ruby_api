@@ -38,3 +38,15 @@ bundle install
 bundle exec rubocop
 bundle exec rake test
 ```
+
+### Docker
+
+This project can be tested and built in a Docker container for convenience. To build and run execute the following:
+
+```
+docker build -t netuitive/ruby-api .
+docker run --name ruby-api netuitive/ruby-api
+docker cp ruby-api:/opt/app/netuitive_ruby_api-<version>.gem .
+```
+
+Make sure to replace `<version>` with the version of the gem which was built in the container.
