@@ -3,9 +3,9 @@ FROM ruby:2.2
 RUN mkdir /opt/app
 WORKDIR /opt/app
 
-COPY Gemfile /opt/app
+COPY Gemfile* /opt/app/
 
-RUN bundler install
+RUN bundle install
 
 COPY . /opt/app
 RUN mkdir /opt/app/log
