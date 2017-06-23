@@ -73,14 +73,11 @@ module NetuitiveRubyApi
 
     def test_sample_locks
       threads = []
-      start_time = Time.new
       250.times { threads << Thread.new { @data_cache.add_sample(sample) } }
       250.times { threads << Thread.new { @data_cache.add_counter_sample(sample) } }
       250.times { threads << Thread.new { @data_cache.add_aggregate_metric(sample) } }
       250.times { threads << Thread.new { @data_cache.add_aggregate_counter_metric(sample) } }
       threads.each(&:join)
-      end_time = Time.new
-      assert((end_time - start_time) * 1000 < 500) # we should be able to chew through 1000 samples in 500 ms
       count = @data_cache.add_sample(sample)
       assert_equal(count, 1001)
       samples = @data_cache.clear_sample_cache
@@ -92,12 +89,9 @@ module NetuitiveRubyApi
 
     def test_event_locks
       threads = []
-      start_time = Time.new
       500.times { threads << Thread.new { @data_cache.add_event(event) } }
       500.times { threads << Thread.new { @data_cache.add_exception_event(exception_event) } }
       threads.each(&:join)
-      end_time = Time.new
-      assert((end_time - start_time) * 1000 < 500) # we should be able to chew through 1000 events in 500 ms
       count = @data_cache.add_event(event)
       assert_equal(count, 1001)
       events = @data_cache.clear_event_cache

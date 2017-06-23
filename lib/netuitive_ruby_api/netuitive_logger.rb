@@ -2,14 +2,11 @@ require 'logger'
 module NetuitiveRubyApi
   class CheaterLogger
     attr_accessor :level
-    def debug(message)
-    end
+    def debug(message); end
 
-    def error(message)
-    end
+    def error(message); end
 
-    def info(message)
-    end
+    def info(message); end
   end
 
   class NetuitiveLogger
