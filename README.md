@@ -3,7 +3,7 @@ Netuitive Ruby API
 
 The Netuitive Ruby API provides an easy interface to communicate with the Netuitive Ruby daemon [NetuitiveD](https://rubygems.org/gems/netuitived). NetuitiveD is meant to work in conjunction with NetuitiveD and the [netuitive_rails_agent](https://rubygems.org/gems/netuitive_rails_agent) gem to help [Netuitive](https://www.netuitive.com) monitor your Ruby applications.
 
-For more information on the Netuitive Ruby API, see our Ruby agent [help docs](https://help.netuitive.com/Content/Misc/Datasources/new_ruby_datasource.htm), or contact Netuitive support at [support@netuitive.com](mailto:support@netuitive.com).
+For more information on the Netuitive Ruby API, see our Ruby agent [help docs](https://docs.virtana.com/en/ruby-agent.html), or contact Netuitive support at [support@netuitive.com](mailto:support@netuitive.com).
 
 Requirements
 -------------
