@@ -1,21 +1,21 @@
-Netuitive Ruby API
+CloudWisdom Ruby API
 ===================
 
-The Netuitive Ruby API provides an easy interface to communicate with the Netuitive Ruby daemon [NetuitiveD](https://rubygems.org/gems/netuitived). NetuitiveD is meant to work in conjunction with NetuitiveD and the [netuitive_rails_agent](https://rubygems.org/gems/netuitive_rails_agent) gem to help [Netuitive](https://www.netuitive.com) monitor your Ruby applications.
+The CloudWisdom Ruby API provides an easy interface to communicate with the CloudWisdom Ruby daemon [NetuitiveD](https://rubygems.org/gems/netuitived). NetuitiveD is meant to work in conjunction with NetuitiveD and the [netuitive_rails_agent](https://rubygems.org/gems/netuitive_rails_agent) gem to help [CloudWisdom](https://www.virtana.com/products/cloudwisdom/) monitor your Ruby applications.
 
-For more information on the Netuitive Ruby API, see our Ruby agent [help docs](https://help.netuitive.com/Content/Misc/Datasources/new_ruby_datasource.htm), or contact Netuitive support at [support@netuitive.com](mailto:support@netuitive.com).
+For more information on the CloudWisdom Ruby API, see our Ruby agent [help docs](https://docs.virtana.com/en/ruby-agent.html), or contact CloudWisdom support at [cloudwisdom.support@virtana.com](mailto:cloudwisdom.support@virtana.com).
 
 Requirements
 -------------
 
 [NetuitiveD](https://github.com/Netuitive/netuitived) must be installed and running.
 
-Installing the Netuitive Ruby API
+Installing the CloudWisdom Ruby API
 ----------------------------------
 
 `gem install netuitive_ruby_api`
 
-Using the Netuitive Ruby API
+Using the CloudWisdom Ruby API
 -----------------------------
 
 Single sample example:
